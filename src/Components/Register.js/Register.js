@@ -18,6 +18,8 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    console.log(name, imgURL);
+
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
@@ -27,9 +29,7 @@ const Register = () => {
 
   const HandleGoogleSignIn = () => {
     loginWithGoogle()
-      .then((result) => {
-        const user = result.user;
-      })
+      .then((result) => {})
       .catch((e) => {
         console.error(e);
       });

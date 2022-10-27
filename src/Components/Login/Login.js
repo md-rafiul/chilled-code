@@ -3,10 +3,14 @@ import "./Login.css";
 import { Button, Form } from "react-bootstrap";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../UserContext/UserContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,6 +22,7 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         form.reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => console.error(error));
   };
@@ -25,7 +30,7 @@ const Login = () => {
   const HandleGoogleSignIn = () => {
     loginWithGoogle()
       .then((result) => {
-        const user = result.user;
+        navigate(from, { replace: true });
       })
       .catch((e) => {
         console.error(e);
@@ -33,7 +38,9 @@ const Login = () => {
   };
   const HandleGithubSignIn = () => {
     loginWithGithub()
-      .then(() => {})
+      .then(() => {
+        navigate(from, { replace: true });
+      })
       .catch((e) => {
         console.error(e);
       });

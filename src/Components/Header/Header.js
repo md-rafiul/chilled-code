@@ -1,11 +1,12 @@
 import React from "react";
 import "./Header.css";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../UserContext/UserContext";
 import { useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import logo from "../../logo/logo512.png";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -28,7 +29,10 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand>
-            <Link to="/">Chilled Code!</Link>
+            <img className="dp-img" src={logo} alt="" />
+            <Link className="text-decoration-none logo" to="/">
+              Chilled Code!
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

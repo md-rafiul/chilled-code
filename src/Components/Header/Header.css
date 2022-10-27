@@ -3,6 +3,12 @@
   justify-content: space-between;
 }
 
+.logo {
+  font-weight: 600;
+  color: aliceblue;
+  padding: 2px 15px;
+}
+
 .dp-img {
   height: 35px;
   border-radius: 50%;
