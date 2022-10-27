@@ -3,6 +3,7 @@ import "./Login.css";
 import { Button, Form } from "react-bootstrap";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../UserContext/UserContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
@@ -62,6 +63,9 @@ const Login = () => {
             name="password"
             required
           />
+          <Form.Text className="text-muted">
+            New user? <Link to="/register">Create an account!</Link>
+          </Form.Text>
         </Form.Group>
 
         <Button variant="primary" type="submit">

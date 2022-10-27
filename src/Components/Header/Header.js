@@ -1,12 +1,15 @@
 import React from "react";
 import "./Header.css";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../UserContext/UserContext";
+import { useState } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [mode, setMode] = useState(true);
 
   const HandleLogOut = () => {
     logOut()
@@ -14,6 +17,10 @@ const Header = () => {
       .catch((e) => {
         console.error(e);
       });
+  };
+
+  const toggleThemeMode = () => {
+    setMode(!mode);
   };
 
   return (
@@ -26,25 +33,32 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto">
+              <Link className="nav-btn" onClick={toggleThemeMode}>
+                {mode ? <FaMoon /> : <FaSun />}
+              </Link>
               <Link className="nav-btn" to="/courses">
                 Courses
               </Link>
               <Link className="nav-btn" to="/blogs">
                 Blogs
               </Link>
+              <Link className="nav-btn" to="/faq">
+                FAQ
+              </Link>
               {user ? (
                 <>
-                  <Link className="nav-btn">{user.email}</Link>
-                  <img className="dp-img" src={user?.photoURL} alt="" />
+                  <img
+                    className="dp-img"
+                    src={user?.photoURL}
+                    alt=""
+                    title={user.displayName || "Not Found"}
+                  />
                   <Link className="nav-btn" to="/" onClick={HandleLogOut}>
                     Log out
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link className="nav-btn" to="/register">
-                    Register
-                  </Link>
                   <Link className="nav-btn" to="/login">
                     Log In
                   </Link>

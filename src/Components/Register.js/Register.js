@@ -2,6 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../UserContext/UserContext";
 
 const Register = () => {
@@ -45,10 +46,10 @@ const Register = () => {
     <div className="container">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Your name:</Form.Label>
+          <Form.Label>Your full name:</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
             name="name"
             required
           />
@@ -79,6 +80,9 @@ const Register = () => {
             name="password"
             required
           />
+          <Form.Text className="text-muted">
+            Already have an account? <Link to="/login">Log In</Link>
+          </Form.Text>
         </Form.Group>
 
         <Button variant="primary" type="submit">

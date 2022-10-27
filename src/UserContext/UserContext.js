@@ -18,7 +18,8 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const UserContext = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -48,6 +49,7 @@ const UserContext = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       console.log("inside effect: ", currentUser);
     });
 
@@ -58,6 +60,7 @@ const UserContext = ({ children }) => {
 
   const authInfo = {
     user,
+    loading,
     setUser,
     createUser,
     login,
