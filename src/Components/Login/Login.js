@@ -4,11 +4,13 @@ import { Button, Form } from "react-bootstrap";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../UserContext/UserContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const from = location.state?.from?.pathname || "/";
 
@@ -22,9 +24,10 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         form.reset();
+        setError("");
         navigate(from, { replace: true });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => setError(error.message));
   };
 
   const HandleGoogleSignIn = () => {
@@ -33,7 +36,7 @@ const Login = () => {
         navigate(from, { replace: true });
       })
       .catch((e) => {
-        console.error(e);
+        setError(e.message);
       });
   };
   const HandleGithubSignIn = () => {
@@ -42,7 +45,7 @@ const Login = () => {
         navigate(from, { replace: true });
       })
       .catch((e) => {
-        console.error(e);
+        setError(e.message);
       });
   };
 
@@ -70,6 +73,7 @@ const Login = () => {
             name="password"
             required
           />
+          <Form.Text className="text-muted d-block">{error}</Form.Text>
           <Form.Text className="text-muted">
             New user? <Link to="/register">Create an account!</Link>
           </Form.Text>

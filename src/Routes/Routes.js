@@ -29,18 +29,23 @@ const Routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/courses/${params.id}`),
+          fetch(
+            `https://chilled-code-assignment10-server.vercel.app/courses/${params.id}`
+          ),
       },
       {
         path: "/courses",
         element: <Courses></Courses>,
-        loader: () => fetch("http://localhost:5000/courses"),
+        loader: () =>
+          fetch("https://chilled-code-assignment10-server.vercel.app/courses"),
       },
       {
         path: "/courses/:id",
         element: <CourseDetails></CourseDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/courses/${params.id}`),
+          fetch(
+            `https://chilled-code-assignment10-server.vercel.app/courses/${params.id}`
+          ),
       },
       {
         path: "/blogs",
