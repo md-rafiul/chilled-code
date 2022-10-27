@@ -1,10 +1,31 @@
 import React from "react";
+import { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../../UserContext/UserContext";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const imgURL = form.imgURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .then((error) => console.error(error));
+  };
+
   return (
     <div className="container">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Your name:</Form.Label>
           <Form.Control
@@ -46,6 +67,15 @@ const Register = () => {
           Register
         </Button>
       </Form>
+      <div className="login-with">
+        <Button variant="outline-info" className="login-btn">
+          <FaGoogle /> Register with Google
+        </Button>
+        <br />
+        <Button variant="outline-dark" className="login-btn">
+          <FaGithub /> Register with GitHub
+        </Button>
+      </div>
     </div>
   );
 };

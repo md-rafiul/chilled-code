@@ -2,3 +2,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+.dp-img {
+  height: 45px;
+}
+.nav-btn {
+  text-decoration: none;
+  padding: 5px 10px;
+  color: white;
+}
