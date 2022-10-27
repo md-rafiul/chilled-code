@@ -4,7 +4,8 @@
 }
 
 .dp-img {
-  height: 45px;
+  height: 35px;
+  border-radius: 50%;
 }
 .nav-btn {
   text-decoration: none;

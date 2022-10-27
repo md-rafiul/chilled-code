@@ -8,6 +8,14 @@ import { AuthContext } from "../../UserContext/UserContext";
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
 
+  const HandleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -26,11 +34,9 @@ const Header = () => {
               </Link>
               {user ? (
                 <>
-                  <Link className="nav-btn" to="">
-                    {user.displayName}
-                  </Link>
-                  <img className="dp-img" src={user?.imgURL} />
-                  <Link className="nav-btn" to="/" onClick={logOut}>
+                  <Link className="nav-btn">{user.email}</Link>
+                  <img className="dp-img" src={user?.photoURL} alt="" />
+                  <Link className="nav-btn" to="/" onClick={HandleLogOut}>
                     Log out
                   </Link>
                 </>

@@ -5,7 +5,8 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../UserContext/UserContext";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, loginWithGoogle, loginWithGithub } =
+    useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +21,24 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
       })
-      .then((error) => console.error(error));
+      .catch((error) => console.error(error));
+  };
+
+  const HandleGoogleSignIn = () => {
+    loginWithGoogle()
+      .then((result) => {
+        const user = result.user;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const HandleGithubSignIn = () => {
+    loginWithGithub()
+      .then(() => {})
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
@@ -68,11 +86,19 @@ const Register = () => {
         </Button>
       </Form>
       <div className="login-with">
-        <Button variant="outline-info" className="login-btn">
+        <Button
+          variant="outline-info"
+          className="login-btn"
+          onClick={HandleGoogleSignIn}
+        >
           <FaGoogle /> Register with Google
         </Button>
         <br />
-        <Button variant="outline-dark" className="login-btn">
+        <Button
+          variant="outline-dark"
+          className="login-btn"
+          onClick={HandleGithubSignIn}
+        >
           <FaGithub /> Register with GitHub
         </Button>
       </div>

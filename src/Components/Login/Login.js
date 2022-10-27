@@ -5,7 +5,8 @@ import { FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../../UserContext/UserContext";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -15,10 +16,28 @@ const Login = () => {
 
     login(email, password)
       .then((result) => {
-        console.log(result.user);
+        form.reset();
       })
-      .then((error) => console.error(error));
+      .catch((error) => console.error(error));
   };
+
+  const HandleGoogleSignIn = () => {
+    loginWithGoogle()
+      .then((result) => {
+        const user = result.user;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const HandleGithubSignIn = () => {
+    loginWithGithub()
+      .then(() => {})
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   return (
     <div className="container">
       <Form onSubmit={handleSubmit}>
@@ -50,11 +69,19 @@ const Login = () => {
         </Button>
       </Form>
       <div className="login-with">
-        <Button variant="outline-info" className="login-btn">
+        <Button
+          variant="outline-info"
+          className="login-btn"
+          onClick={HandleGoogleSignIn}
+        >
           <FaGoogle /> Log in with Google
         </Button>
         <br />
-        <Button variant="outline-dark" className="login-btn">
+        <Button
+          variant="outline-dark"
+          className="login-btn"
+          onClick={HandleGithubSignIn}
+        >
           <FaGithub /> Log in with GitHub
         </Button>
       </div>
